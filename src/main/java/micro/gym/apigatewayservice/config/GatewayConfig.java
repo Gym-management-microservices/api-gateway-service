@@ -31,8 +31,8 @@ public class GatewayConfig {
                 
                 // Trainers Management Service
                 .route("trainers-service", r -> r
-                        .path("/api/trainers/**")
-                        .filters(f -> f.rewritePath("/api/trainers(?<segment>/?.*)", "/trainer${segment}"))
+                        .path("/api/trainer/**")
+                        .filters(f -> f.rewritePath("/api/trainer(?<segment>/?.*)", "/trainer${segment}"))
                         .uri("http://localhost:8100"))
                 
                 .build();
