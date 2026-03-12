@@ -5,8 +5,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
-import org.springframework.security.oauth2.jwt.JwtDecoders;
+import org.springframework.security.oauth2.jwt.ReactiveJwtDecoder;
+import org.springframework.security.oauth2.jwt.ReactiveJwtDecoders;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 
 @Configuration
@@ -17,8 +17,8 @@ public class SecurityConfig {
     private String issuerUri;
 
     @Bean
-    public JwtDecoder jwtDecoder() {
-        return JwtDecoders.fromIssuerLocation(issuerUri);
+    public ReactiveJwtDecoder reactiveJwtDecoder() {
+        return ReactiveJwtDecoders.fromIssuerLocation(issuerUri);
     }
 
     @Bean
@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .pathMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html", "/webjars/**").permitAll()
                 .pathMatchers("/api/classes/**", "/api/equipment/**", "/api/members/**", "/api/trainers/**").authenticated()
                 .anyExchange().permitAll())
-            .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> {}));
+            .oauth2ResourceServer(oauth2 -> oauth2.jwt(jwt -> jwt.jwtDecoder(reactiveJwtDecoder())));
         return http.build();
     }
 }
