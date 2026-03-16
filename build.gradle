@@ -32,6 +32,9 @@ dependencies {
     
     // OpenAPI/Swagger
     implementation 'org.springdoc:springdoc-openapi-starter-webflux-ui:2.0.2'
+
+    implementation 'org.springframework.kafka:spring-kafka'
+    implementation 'org.apache.kafka:kafka-streams'
     
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
